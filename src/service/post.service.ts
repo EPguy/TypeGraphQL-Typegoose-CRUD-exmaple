@@ -22,8 +22,7 @@ export default class PostService {
         const isPasswordCorrect = await compare(post.password, findPost.password);
         if(!isPasswordCorrect) throw new HttpException(400, "Password incorrect.");
 
-        await PostModel.updateOne({_id: post._id},{$set: {title: post.title, content: post.content, ModifiedDate: Date.now()}});
-        const updatePost = await PostModel.findById(post._id);
+        const updatePost = await PostModel.findOneAndUpdate({_id: post._id},{$set: {title: post.title, content: post.content, ModifiedDate: Date.now()}});
         return updatePost;
     }
 
@@ -32,8 +31,7 @@ export default class PostService {
         const isPasswordCorrect = await compare(post.password, findPost.password);
         if(!isPasswordCorrect) throw new HttpException(400, "Password incorrect.");
 
-        await PostModel.updateOne({_id: post._id},{$set: {deleteFlag: true, ModifiedDate: Date.now()}});
-        const deletePost = await PostModel.findById(post._id);
+        const deletePost = await PostModel.findOneAndUpdate({_id: post._id},{$set: {deleteFlag: true, ModifiedDate: Date.now()}});
         return deletePost;
     }
 
