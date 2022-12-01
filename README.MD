@@ -6,6 +6,7 @@ npm run dev
 
 ## Stacks
 * Node.js
+* Express
 * Typescript
 * Apollo GraphQL
 * MongoDB
