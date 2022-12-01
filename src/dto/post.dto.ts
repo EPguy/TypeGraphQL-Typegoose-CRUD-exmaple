@@ -1,5 +1,5 @@
 import {Field, InputType, ObjectType} from "type-graphql";
-import {IsBoolean, IsNumber, IsString} from "class-validator";
+import {IsNumber, IsString} from "class-validator";
 import {Post} from "@schema/post.schema";
 
 @ObjectType()
