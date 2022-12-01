@@ -1,12 +1,24 @@
 import {Arg, Mutation, Query, Resolver} from "type-graphql";
 import PostService from "@service/post.service";
 import {Post} from "@schema/post.schema";
-import {PostCreateDto, PostDeleteDto, PostListDto, PostPaginationDto, PostUpdateDto} from "@dto/post.dto";
+import {
+    PostCreateDto,
+    PostDeleteDto,
+    PostDetailDto,
+    PostListDto,
+    PostPaginationDto,
+    PostUpdateDto
+} from "@dto/post.dto";
 
 @Resolver()
 export default class PostResolver {
     constructor(private postService : PostService) {
         this.postService = new PostService();
+    }
+
+    @Query(() => Post)
+    postFindById(@Arg("post") post: PostDetailDto) {
+        return this.postService.postDetail(post);
     }
 
     @Query(() => PostListDto)

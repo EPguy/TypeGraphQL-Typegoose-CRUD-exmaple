@@ -86,3 +86,10 @@ export class PostPaginationDto{
     @IsString()
     cursor: string;
 }
+
+@InputType()
+export class PostDetailDto{
+    @Field()
+    @IsString()
+    _id: string;
+}

@@ -1,7 +1,7 @@
 import {PostModel} from "@schema/post.schema";
 import {
     PostCreateDto,
-    PostDeleteDto,
+    PostDeleteDto, PostDetailDto,
     PostListDto,
     PostPageInfoDto,
     PostPaginationDto,
@@ -58,5 +58,10 @@ export default class PostService {
         const postList = new PostListDto(posts, postPageInfo);
 
         return postList;
+    }
+
+    async postDetail(post: PostDetailDto) {
+        const detailPost = await PostModel.findById(post._id);
+        return detailPost;
     }
 }
