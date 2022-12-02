@@ -40,19 +40,19 @@ export default class PostService {
         if(post.cursor) {
             filterQuery = {
                 deleteFlag: false,
-                _id : { $gt: post.cursor }
+                _id : { $lt: post.cursor }
             }
         }
         const posts = await PostModel.find(filterQuery).sort({
             _id: -1
         }).limit(post.numPosts)
 
-        const next = posts[posts.length - 1]._id
-        const hasNextPage = await PostModel.count({
+        const endCursor = posts.length > 0 ? posts[posts.length - 1]._id.toString() : null
+        const hasNextPage = posts.length > 0 ? await PostModel.count({
             deleteFlag: false,
-            _id: { $gt: next }
-        }) > 0
-        const postPageInfo = new PostPageInfoDto(hasNextPage, next.toString());
+            _id: { $lt: endCursor }
+        }) > 0 : false
+        const postPageInfo = new PostPageInfoDto(hasNextPage, endCursor);
         const postList = new PostListDto(posts, postPageInfo);
 
         return postList;

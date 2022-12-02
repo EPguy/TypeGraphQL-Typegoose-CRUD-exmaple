@@ -1,13 +1,14 @@
 import {Field, InputType, ObjectType} from "type-graphql";
 import {IsNumber, IsString} from "class-validator";
 import {Post} from "@schema/post.schema";
+import { prop } from '@typegoose/typegoose';
 
 @ObjectType()
 export class PostPageInfoDto{
     @Field(() => Boolean)
     hasNextPage: boolean;
 
-    @Field(() => String)
+    @Field(() => String, {nullable: true})
     endCursor: string;
 
     constructor(hasNextPage: boolean, endCursor: string) {
